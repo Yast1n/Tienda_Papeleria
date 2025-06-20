@@ -1,23 +1,57 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
-{% load static %}
 <head>
     <meta charset="UTF-8">
     <title>Tienda de Papelería</title>
-    <link rel="stylesheet" href="{% static 'Tienda/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'Tienda/css/index.css' %}">
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li>Home</li>
-                <li>Products</li>
-                <li>About</li>
-                <li>Contact</li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
             </ul>
         </nav>
     </header>
-    <h1>Bienvenido a la Tienda de Papelería</h1>
+
+    <section class="hero">
+        <h2>WELCOME TO OUR STORE</h2>
+        <h1>Find your favorite stationery</h1>
+        <div class="hero-img">
+            <img src="{% static 'Tienda/img/portada-notebook.png' %}" alt="Notebook" />
+            <!-- Crea la carpeta 'img' dentro de /static/Tienda y pon una imagen ahí, puedes usar una genérica por ahora -->
+        </div>
+    </section>
+
+    <section class="featured">
+        <h3>Featured Products</h3>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="{% static 'Tienda/img/notebook.png' %}" alt="Notebook">
+                <div>Notebook</div>
+                <button>Buy</button>
+            </div>
+            <div class="product-card">
+                <img src="{% static 'Tienda/img/pen.png' %}" alt="Pen">
+                <div>Pen</div>
+                <button>Buy</button>
+            </div>
+            <div class="product-card">
+                <img src="{% static 'Tienda/img/planner.png' %}" alt="Planner">
+                <div>Planner</div>
+                <button>Buy</button>
+            </div>
+            <div class="product-card">
+                <img src="{% static 'Tienda/img/stickers.png' %}" alt="Stickers">
+                <div>Stickers</div>
+                <button>Buy</button>
+            </div>
+        </div>
+    </section>
     <script src="{% static 'Tienda/js/main.js' %}"></script>
 </body>
 </html>

@@ -1,0 +1,112 @@
+body {
+    background: #fdf6e3;
+    font-family: 'Georgia', serif;
+    color: #382b18;
+    margin: 0;
+}
+
+header nav {
+    background: #ecdcb0;
+    border-bottom: 2px solid #bca16a;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #382b18;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.hero {
+    text-align: center;
+    background: #f6e2c0;
+    padding: 40px 0 20px 0;
+}
+
+.hero h2 {
+    margin: 0;
+    letter-spacing: 2px;
+    font-size: 24px;
+    color: #a6793a;
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin: 15px 0;
+}
+
+.hero-img img {
+    width: 220px;
+    border-radius: 15px;
+    margin-top: 20px;
+    box-shadow: 0 4px 18px #bca16a;
+}
+
+.featured {
+    margin: 40px auto 0 auto;
+    max-width: 900px;
+    padding: 20px;
+}
+
+.featured h3 {
+    text-align: center;
+    font-size: 28px;
+    color: #b68545;
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: #fff7e0;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px #e7c490;
+    text-align: center;
+    padding: 22px 10px 16px 10px;
+    transition: transform 0.15s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px) scale(1.03);
+}
+
+.product-card img {
+    width: 110px;
+    height: 110px;
+    border-radius: 13px;
+    object-fit: cover;
+    margin-bottom: 12px;
+}
+
+.product-card button {
+    background: #b68545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 24px;
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 9px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px #ecdcb0;
+    transition: background 0.2s;
+}
+
+.product-card button:hover {
+    background: #987134;
+}
