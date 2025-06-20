@@ -1,4 +1,4 @@
-/* Estilo base vintage con toque pergamino/musical */
+/* Fondo general tipo vintage */
 body {
     background: #fdf6e3 url('../img/texture-music-bg.png') repeat;
     background-size: contain;
@@ -69,22 +69,39 @@ nav a:hover {
 /* Productos destacados */
 .featured {
     margin: 40px auto 0 auto;
-    max-width: 900px;
+    max-width: 1100px;
     padding: 20px;
 }
 
-.featured h3 {
-    text-align: center;
-    font-size: 28px;
-    color: #b68545;
-    margin-bottom: 24px;
+/* Categoría bloque */
+.category-block {
+    margin-bottom: 40px;
+    background: #faecd6;
+    border-radius: 20px;
+    box-shadow: 0 1px 8px #eed7b2;
+    padding: 20px 18px 8px 18px;
+    border: 1.5px solid #f0d7ad;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-block h4 {
+    margin: 0 0 20px 0;
+    color: #a6793a;
+    font-size: 22px;
+    font-weight: bold;
     letter-spacing: 1px;
-    text-shadow: 0 1px #f9e3c5;
+    text-shadow: 0 1px #fff6e2;
+    border-left: 7px solid #e9c78c;
+    padding-left: 16px;
+    background: #fff6e2;
+    border-radius: 0 9px 9px 0;
+    display: inline-block;
 }
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
     gap: 30px;
 }
 
@@ -96,6 +113,10 @@ nav a:hover {
     padding: 22px 10px 16px 10px;
     transition: transform 0.15s, box-shadow 0.3s;
     border: 2px solid #e4cf9c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
 }
 
 .product-card:hover {
@@ -112,6 +133,14 @@ nav a:hover {
     border: 2px solid #ecd6ae;
 }
 
+.product-card div {
+    font-size: 17px;
+    font-weight: bold;
+    color: #79552c;
+    margin-bottom: 8px;
+    min-height: 22px;
+}
+
 .product-card button {
     background: #b68545;
     color: white;
@@ -120,7 +149,7 @@ nav a:hover {
     padding: 7px 24px;
     font-weight: bold;
     font-size: 15px;
-    margin-top: 9px;
+    margin-top: auto;
     cursor: pointer;
     box-shadow: 0 1px 3px #ecdcb0;
     transition: background 0.2s;
@@ -130,3 +159,35 @@ nav a:hover {
     background: #987134;
 }
 
+/* Responsive */
+@media (max-width: 900px) {
+    .featured {
+        padding: 8px;
+    }
+    .products-grid {
+        gap: 20px;
+    }
+    .category-block {
+        padding: 15px 8px 4px 8px;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 26px;
+    }
+    .hero h2 {
+        font-size: 16px;
+    }
+    .category-block h4 {
+        font-size: 17px;
+        padding-left: 9px;
+    }
+    .products-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    .product-card {
+        padding: 12px 2px 12px 2px;
+    }
+}

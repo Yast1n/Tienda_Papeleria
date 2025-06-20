@@ -67,6 +67,12 @@ TEMPLATES = [
     },
 ]
 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
+
 WSGI_APPLICATION = 'Tienda_Papeleria.wsgi.application'
 
 
