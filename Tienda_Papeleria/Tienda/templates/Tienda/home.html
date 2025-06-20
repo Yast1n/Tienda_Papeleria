@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tienda de Papelería</title>
-    <link rel="stylesheet" href="{% static 'Tienda/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'Tienda/css/home.css' %}">
 </head>
 <body>
     <header>
@@ -28,29 +28,27 @@
     </section>
 
     <section class="featured">
-        <h3>Featured Products</h3>
+    <h3>Productos Destacados</h3>
+    {% for cat_block in productos_por_categoria %}
+        <h4>{{ cat_block.categoria.nombre }}</h4>
         <div class="products-grid">
-            <div class="product-card">
-                <img src="{% static 'Tienda/img/notebook.png' %}" alt="Notebook">
-                <div>Notebook</div>
-                <button>Buy</button>
-            </div>
-            <div class="product-card">
-                <img src="{% static 'Tienda/img/pen.png' %}" alt="Pen">
-                <div>Pen</div>
-                <button>Buy</button>
-            </div>
-            <div class="product-card">
-                <img src="{% static 'Tienda/img/planner.png' %}" alt="Planner">
-                <div>Planner</div>
-                <button>Buy</button>
-            </div>
-            <div class="product-card">
-                <img src="{% static 'Tienda/img/stickers.png' %}" alt="Stickers">
-                <div>Stickers</div>
-                <button>Buy</button>
-            </div>
+            {% for producto in cat_block.productos %}
+                <div class="product-card">
+                    {% if producto.imagen %}
+                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                    {% else %}
+                        <img src="{% static 'Tienda/img/placeholder.png' %}" alt="Sin imagen">
+                    {% endif %}
+                    <div>{{ producto.nombre }}</div>
+                    <button onclick="window.location.href='https://wa.me/569XXXXXXXX?text=Hola! Me interesa el producto {{ producto.nombre }}'">
+                        Comprar
+                    </button>
+                </div>
+            {% endfor %}
         </div>
+    {% endfor %}
+</section>
+
     </section>
     <script src="{% static 'Tienda/js/main.js' %}"></script>
 </body>
