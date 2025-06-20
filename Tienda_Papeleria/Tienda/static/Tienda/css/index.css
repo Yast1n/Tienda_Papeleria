@@ -1,14 +1,18 @@
+/* Estilo base vintage con toque pergamino/musical */
 body {
-    background: #fdf6e3;
+    background: #fdf6e3 url('../img/texture-music-bg.png') repeat;
+    background-size: contain;
     font-family: 'Georgia', serif;
     color: #382b18;
     margin: 0;
 }
 
+/* Encabezado */
 header nav {
     background: #ecdcb0;
     border-bottom: 2px solid #bca16a;
     padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 nav ul {
@@ -25,12 +29,19 @@ nav a {
     color: #382b18;
     font-weight: bold;
     font-size: 18px;
+    transition: color 0.2s;
 }
 
+nav a:hover {
+    color: #a6793a;
+}
+
+/* Hero principal */
 .hero {
     text-align: center;
-    background: #f6e2c0;
+    background: linear-gradient(to bottom, #f6e2c0, #fdf6e3);
     padding: 40px 0 20px 0;
+    border-bottom: 2px dashed #e0caa2;
 }
 
 .hero h2 {
@@ -43,6 +54,8 @@ nav a {
 .hero h1 {
     font-size: 40px;
     margin: 15px 0;
+    font-weight: bold;
+    color: #5c3b1e;
 }
 
 .hero-img img {
@@ -50,8 +63,10 @@ nav a {
     border-radius: 15px;
     margin-top: 20px;
     box-shadow: 0 4px 18px #bca16a;
+    border: 3px solid #d9c09a;
 }
 
+/* Productos destacados */
 .featured {
     margin: 40px auto 0 auto;
     max-width: 900px;
@@ -64,6 +79,7 @@ nav a {
     color: #b68545;
     margin-bottom: 24px;
     letter-spacing: 1px;
+    text-shadow: 0 1px #f9e3c5;
 }
 
 .products-grid {
@@ -78,11 +94,13 @@ nav a {
     box-shadow: 0 2px 8px #e7c490;
     text-align: center;
     padding: 22px 10px 16px 10px;
-    transition: transform 0.15s;
+    transition: transform 0.15s, box-shadow 0.3s;
+    border: 2px solid #e4cf9c;
 }
 
 .product-card:hover {
     transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
 .product-card img {
@@ -91,6 +109,7 @@ nav a {
     border-radius: 13px;
     object-fit: cover;
     margin-bottom: 12px;
+    border: 2px solid #ecd6ae;
 }
 
 .product-card button {
@@ -110,3 +129,4 @@ nav a {
 .product-card button:hover {
     background: #987134;
 }
+
