@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ producto.nombre }} | Papelería</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'Tienda/css/detalle_producto.css' %}">
     <link rel="stylesheet" href="{% static 'Tienda/css/footer.css' %}">
@@ -25,32 +26,24 @@
     <nav class="main-nav" id="mainNav">
         <ul>
             <li>
-                <a href="{% url 'home' %}"
-                class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-                Home
-                </a>
+                <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
             </li>
             <li>
-                <a href="{% url 'productos' %}"
-                class="{% if request.resolver_match.url_name == 'productos' %}active{% endif %}">
-                Products
-                </a>
+                <a href="{% url 'productos' %}" class="{% if request.resolver_match.url_name == 'productos' %}active{% endif %}">Products</a>
             </li>
             <li>
-                <a href="#"
-                class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">
-                About
-                </a>
+                <a href="#" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
             </li>
             <li>
-                <a href="#"
-                class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
-                Contact
-                </a>
+                <a href="#" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
             </li>
         </ul>
     </nav>
-
+    <div class="cart-icon-container">
+        <button id="cartBtn" class="cart-btn" aria-label="Ver carrito">
+            🛒 <span id="cart-count">0</span>
+        </button>
+    </div>
     <button class="burger" id="burgerBtn" aria-label="Abrir menú">
       <span class="burger-bar"></span>
       <span class="burger-bar"></span>
@@ -86,6 +79,12 @@
                target="_blank">
                Contactar por WhatsApp
             </a>
+            <button class="btn-add-cart" 
+                    data-id="{{ producto.id }}" 
+                    data-nombre="{{ producto.nombre }}"
+                    {% if producto.stock == 0 %}disabled{% endif %}>
+              🛒 Agregar
+            </button>
         </div>
     </div>
 </main>
@@ -99,5 +98,31 @@
         </div>
     </div>
 </footer>
+<!-- Modal para seleccionar cantidad de producto -->
+<div id="cantidadModal" class="modal-cantidad">
+  <div class="cantidad-content">
+    <h3 id="cantidadProdName">Agregar producto</h3>
+    <div class="cantidad-inputs">
+      <label for="inputCantidad">Cantidad:</label>
+      <input type="number" id="inputCantidad" min="1" value="1">
+    </div>
+    <div class="modal-btns">
+      <button id="btnCantidadAgregar">Agregar</button>
+      <button id="btnCantidadCancelar">Cancelar</button>
+    </div>
+  </div>
+</div>
+<!-- Modal para mostrar el carrito de productos -->
+<div id="cartModal" class="modal-cart">
+  <div class="cart-content">
+    <h3>🛒 Productos Seleccionados</h3>
+    <div id="cartItemsList"></div>
+    <div class="cart-actions">
+      <button id="cartSendBtn">Enviar por WhatsApp</button>
+      <button id="cartCloseBtn">Cerrar</button>
+    </div>
+  </div>
+</div>
+<script src="{% static 'Tienda/js/main.js' %}"></script>
 </body>
 </html>
