@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Papelería | Todos los Productos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Tienda/css/productos.css' %}">
+    <link rel="stylesheet" href="{% static 'Tienda/css/footer.css' %}">
+</head>
+<body>
+<header class="main-header">
+  <div class="header-container">
+    <div class="logo-nombre">
+      <span class="logo">📒</span>
+      <span class="nombre-tienda">Papelería</span>
+    </div>
+    <form action="{% url 'productos' %}" method="get" class="search-form" id="searchForm">
+      <input type="text" name="buscar" placeholder="Buscar productos..." value="{{ request.GET.buscar|default_if_none:'' }}">
+      {% if request.GET.categoria %}
+        <input type="hidden" name="categoria" value="{{ request.GET.categoria }}">
+      {% endif %}
+      <button type="submit" class="search-btn">🔍</button>
+    </form>
+    <nav class="main-nav" id="mainNav">
+        <ul>
+            <li>
+                <a href="{% url 'home' %}"
+                class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                Home
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'productos' %}"
+                class="{% if request.resolver_match.url_name == 'productos' %}active{% endif %}">
+                Products
+                </a>
+            </li>
+            <li>
+                <a href="#"
+                class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                About
+                </a>
+            </li>
+            <li>
+                <a href="#"
+                class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+                Contact
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <button class="burger" id="burgerBtn" aria-label="Abrir menú">
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+    </button>
+  </div>
+</header>
+
+
+<main>
+    <div class="section-title">
+        <span class="icon-title">📦</span>
+        <h2>Categorías</h2>
+    </div>
+    <ul class="categorias-lista">
+        <li>
+            <a href="{% url 'productos' %}" {% if not request.GET.categoria %}class="selected"{% endif %}>Todas</a>
+        </li>
+        {% for categoria in categorias %}
+            <li>
+                <a href="{% url 'productos' %}?categoria={{ categoria.id }}"
+                {% if request.GET.categoria|default:'' == categoria.id|stringformat:'s' %}class="selected"{% endif %}>
+                    {{ categoria.nombre }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="section-title">
+        <span class="icon-title">🛒</span>
+        <h2>Todos los productos</h2>
+    </div>
+    <div class="products-grid">
+        {% for producto in productos %}
+            <div class="product-card {% if producto.stock == 0 %}out-stock{% endif %}">
+                <a href="{% url 'detalle_producto' producto.id %}" class="img-link">
+                    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                </a>
+                <div class="product-title">{{ producto.nombre }}</div>
+                {% if producto.oferta %}
+                  <div class="product-precio">
+                    <span class="oferta">${{ producto.oferta }}</span>
+                    <span class="precio-tachado">${{ producto.precio }}</span>
+                  </div>
+                {% else %}
+                  <div class="product-precio">${{ producto.precio }}</div>
+                {% endif %}
+                <div class="stock-info {% if producto.stock == 0 %}sin-stock{% endif %}">
+                  {% if producto.stock > 0 %}
+                      Stock: {{ producto.stock }}
+                  {% else %}
+                      Sin stock
+                  {% endif %}
+                </div>
+                <div class="product-actions">
+                    <a class="btn-contact" 
+                       href="https://wa.me/56945657563?text=Hola%2C%20me%20interesa%20el%20producto%20{{ producto.nombre|urlencode }}" 
+                       target="_blank">
+                       Contactar
+                    </a>
+                    <a class="btn-detalle" href="{% url 'detalle_producto' producto.id %}">
+                        Ver detalles
+                    </a>
+                    <button class="btn-add-cart" data-id="{{ producto.id }}" data-nombre="{{ producto.nombre }}">
+                        🛒 Agregar
+                    </button>
+                </div>
+                <div class="products-grid">
+                    {% for producto in productos %}
+                        <!-- ...card... -->
+                    {% empty %}
+                        <p class="no-result-msg">No se encontraron productos para tu búsqueda.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay productos en esta categoría.</p>
+        {% endfor %}
+    </div>
+    {% if productos.has_other_pages %}
+        <div class="pagination">
+            {% if productos.has_previous %}
+                <a href="?{% if request.GET.categoria %}categoria={{ request.GET.categoria }}&{% endif %}{% if request.GET.buscar %}buscar={{ request.GET.buscar }}&{% endif %}page={{ productos.previous_page_number }}">&laquo;</a>
+            {% endif %}
+            {% for i in productos.paginator.page_range %}
+                {% if productos.number == i %}
+                    <span class="current">{{ i }}</span>
+                {% else %}
+                    <a href="?{% if request.GET.categoria %}categoria={{ request.GET.categoria }}&{% endif %}{% if request.GET.buscar %}buscar={{ request.GET.buscar }}&{% endif %}page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if productos.has_next %}
+                <a href="?{% if request.GET.categoria %}categoria={{ request.GET.categoria }}&{% endif %}{% if request.GET.buscar %}buscar={{ request.GET.buscar }}&{% endif %}page={{ productos.next_page_number }}">&raquo;</a>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div>Papelería | &copy; 2025</div>
+        <div class="footer-links">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">WhatsApp</a>
+        </div>
+    </div>
+</footer>
+
+<script src="{% static 'Tienda/js/main.js' %}"></script>
+</body>
+</html>

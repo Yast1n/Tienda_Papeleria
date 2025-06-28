@@ -4,52 +4,121 @@
 <head>
     <meta charset="UTF-8">
     <title>Tienda de Papelería</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'Tienda/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'Tienda/css/footer.css' %}">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <h2>WELCOME TO OUR STORE</h2>
-        <h1>Find your favorite stationery</h1>
-        <div class="hero-img">
-            <img src="{% static 'Tienda/img/portada-notebook.png' %}" alt="Notebook" />
-            <!-- Crea la carpeta 'img' dentro de /static/Tienda y pon una imagen ahí, puedes usar una genérica por ahora -->
+    <header class="main-header">
+    <div class="header-container">
+        <div class="logo-nombre">
+            <span class="logo">📒</span>
+            <span class="nombre-tienda">Papelería</span>
         </div>
-    </section>
+        <form action="{% url 'productos' %}" method="get" class="search-form" id="searchForm">
+            <input type="text" name="buscar" placeholder="Buscar productos..." value="{{ request.GET.buscar|default_if_none:'' }}">
+            {% if request.GET.categoria %}
+                <input type="hidden" name="categoria" value="{{ request.GET.categoria }}">
+            {% endif %}
+            <button type="submit" class="search-btn">🔍</button>
+        </form>
+    <nav class="main-nav" id="mainNav">
+        <ul>
+            <li>
+                <a href="{% url 'home' %}"
+                class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                Home
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'productos' %}"
+                class="{% if request.resolver_match.url_name == 'productos' %}active{% endif %}">
+                Products
+                </a>
+            </li>
+            <li>
+                <a href="#"
+                class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                About
+                </a>
+            </li>
+            <li>
+                <a href="#"
+                class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+                Contact
+                </a>
+            </li>
+        </ul>
+    </nav>
 
-    <section class="featured">
-    <h3>Productos Destacados</h3>
-    {% for cat_block in productos_por_categoria %}
-        <h4>{{ cat_block.categoria.nombre }}</h4>
-        <div class="products-grid">
-            {% for producto in cat_block.productos %}
-                <div class="product-card">
-                    {% if producto.imagen %}
+        <button class="burger" id="burgerBtn" aria-label="Abrir menú">
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+        </button>
+    </div>
+</header>
+
+
+    <main>
+        <section class="hero">
+            <h2>WELCOME TO OUR STORE</h2>
+            <h1>Find your favorite stationery</h1>
+            <div class="hero-img">
+                <img src="{% static 'Tienda/img/portada-notebook.png' %}" alt="Notebook" />
+            </div>
+        </section>
+
+        <section class="featured">
+            <h2>Productos destacados</h2>
+            <div class="products-grid">
+                {% for producto in productos_destacados %}
+                <div class="product-card {% if producto.stock == 0 %}out-stock{% endif %}">
+                    <a href="{% url 'detalle_producto' producto.id %}" class="img-link">
                         <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
-                    {% else %}
-                        <img src="{% static 'Tienda/img/placeholder.png' %}" alt="Sin imagen">
-                    {% endif %}
-                    <div>{{ producto.nombre }}</div>
-                    <button onclick="window.location.href='https://wa.me/569XXXXXXXX?text=Hola! Me interesa el producto {{ producto.nombre }}'">
-                        Comprar
-                    </button>
+                    </a>
+                    <div class="product-title">{{ producto.nombre }}</div>
+                    <div class="product-precio">${{ producto.precio }}</div>
+                    <div class="stock-info {% if producto.stock == 0 %}sin-stock{% endif %}">
+                        {% if producto.stock > 0 %}
+                            Stock: {{ producto.stock }}
+                        {% else %}
+                            Sin stock
+                        {% endif %}
+                    </div>
+                    <div class="product-actions">
+                        <a class="btn-contact{% if producto.stock == 0 %} no-stock{% endif %}"
+                        href="https://wa.me/56945657563?text=Hola%2C%20me%20interesa%20el%20producto%20{{ producto.nombre|urlencode }}"
+                        target="_blank"
+                        {% if producto.stock == 0 %} tabindex="-1" aria-disabled="true"{% endif %}>
+                            Contactar
+                        </a>
+                        <a class="btn-detalle{% if producto.stock == 0 %} no-stock{% endif %}"
+                        href="{% url 'detalle_producto' producto.id %}"
+                        {% if producto.stock == 0 %} tabindex="-1" aria-disabled="true"{% endif %}>
+                            Ver detalles
+                        </a>
+                    </div>
                 </div>
-            {% endfor %}
-        </div>
-    {% endfor %}
-</section>
+                {% empty %}
+                <p>No hay productos destacados aún.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
 
-    </section>
+<footer class="footer">
+    <div class="footer-container">
+        <div>Papelería | &copy; 2025</div>
+        <div class="footer-links">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">WhatsApp</a>
+        </div>
+    </div>
+</footer>
+
     <script src="{% static 'Tienda/js/main.js' %}"></script>
 </body>
 </html>

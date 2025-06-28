@@ -17,6 +17,7 @@ class Producto(models.Model):
     stock = models.PositiveIntegerField(default=0)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
+    destacado = models.BooleanField(default=False, help_text="¿Mostrar este producto en la página principal?")
 
     def __str__(self):
         return self.nombre

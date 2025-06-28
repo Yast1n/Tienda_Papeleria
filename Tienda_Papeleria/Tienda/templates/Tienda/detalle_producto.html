@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ producto.nombre }} | Papelería</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Tienda/css/detalle_producto.css' %}">
+    <link rel="stylesheet" href="{% static 'Tienda/css/footer.css' %}">
+</head>
+<body>
+<header class="main-header">
+  <div class="header-container">
+    <div class="logo-nombre">
+      <span class="logo">📒</span>
+      <span class="nombre-tienda">Papelería</span>
+    </div>
+    <form action="{% url 'productos' %}" method="get" class="search-form" id="searchForm">
+      <input type="text" name="buscar" placeholder="Buscar productos..." value="{{ request.GET.buscar|default_if_none:'' }}">
+      {% if request.GET.categoria %}
+        <input type="hidden" name="categoria" value="{{ request.GET.categoria }}">
+      {% endif %}
+      <button type="submit" class="search-btn">🔍</button>
+    </form>
+    <nav class="main-nav" id="mainNav">
+        <ul>
+            <li>
+                <a href="{% url 'home' %}"
+                class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                Home
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'productos' %}"
+                class="{% if request.resolver_match.url_name == 'productos' %}active{% endif %}">
+                Products
+                </a>
+            </li>
+            <li>
+                <a href="#"
+                class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                About
+                </a>
+            </li>
+            <li>
+                <a href="#"
+                class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+                Contact
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <button class="burger" id="burgerBtn" aria-label="Abrir menú">
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+    </button>
+  </div>
+</header>
+<main>
+    <div class="detalle-container">
+        <div class="detalle-img">
+            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+        </div>
+        <div class="detalle-info">
+            <h1>{{ producto.nombre }}</h1>
+            <p class="detalle-desc">{{ producto.descripcion }}</p>
+            {% if producto.oferta %}
+              <div class="product-precio">
+                <span class="oferta">${{ producto.oferta }}</span>
+                <span class="precio-tachado">${{ producto.precio }}</span>
+              </div>
+            {% else %}
+              <div class="product-precio">${{ producto.precio }}</div>
+            {% endif %}
+            <div class="stock-info {% if producto.stock == 0 %}sin-stock{% endif %}">
+              {% if producto.stock > 0 %}
+                  Stock: {{ producto.stock }}
+              {% else %}
+                  Sin stock
+              {% endif %}
+            </div>
+            <a class="btn-contact" 
+               href="https://wa.me/56942425006?text=Hola%2C%20me%20interesa%20el%20producto%20{{ producto.nombre|urlencode }}" 
+               target="_blank">
+               Contactar por WhatsApp
+            </a>
+        </div>
+    </div>
+</main>
+<footer class="footer">
+    <div class="footer-container">
+        <div>Papelería | &copy; 2025</div>
+        <div class="footer-links">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">WhatsApp</a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
