@@ -28,6 +28,13 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            animation: floatCard 3.5s ease-in-out infinite;
+        }
+        @keyframes floatCard {
+            0% { transform: translate(-50%, -50%) scale(1) rotate(-2deg); }
+            30% { transform: translate(-50%, -53%) scale(1.03) rotate(2deg); }
+            60% { transform: translate(-50%, -47%) scale(1.01) rotate(-1deg); }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(-2deg); }
         }
         h1 {
             color: #b48a3c;
@@ -199,7 +206,7 @@
         };
     }
 let musicalNotes = [];
-for (let i = 0; i < 170; i++) { // Más notas musicales
+for (let i = 0; i < 200; i++) { // Más notas musicales
     musicalNotes.push(createNote());
 }
 
