@@ -2,71 +2,19 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="stylesheet" href="{% static 'Tienda/css/about.css' %}">
-    <header class="main-header">
-    <div class="header-container">
-        <div class="logo-nombre">
-            <span class="logo">📒</span>
-            <span class="nombre-tienda">Papelería</span>
-        </div>
-        <form action="{% url 'productos' %}" method="get" class="search-form" id="searchForm">
-            <input type="text" name="buscar" placeholder="Buscar productos..." value="{{ request.GET.buscar|default_if_none:'' }}">
-            {% if request.GET.categoria %}
-                <input type="hidden" name="categoria" value="{{ request.GET.categoria }}">
-            {% endif %}
-            <button type="submit" class="search-btn">🔍</button>
-        </form>
-    <nav class="main-nav" id="mainNav">
-        <ul>
-            <li>
-                <a href="{% url 'home' %}"
-                class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-                Home
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'productos' %}"
-                class="{% if request.resolver_match.url_name == 'productos' %}active{% endif %}">
-                Products
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'about' %}"
-                class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">
-                About
-                </a>
-            </li>
-            <li>
-                <a href="https://api.whatsapp.com/send/?phone=56945657563&text=Hola%2C+me+interesa+el+producto+lapcin&type=phone_number&app_absent=0" target="_blank" rel="noopener" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
-                Contact
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <div class="cart-icon-container">
-        <button id="cartBtn" class="cart-btn" aria-label="Ver carrito">
-            🛒 <span id="cart-count">0</span>
-        </button>
-    </div>
-        <button class="burger" id="burgerBtn" aria-label="Abrir menú">
-            <span class="burger-bar"></span>
-            <span class="burger-bar"></span>
-            <span class="burger-bar"></span>
-        </button>
-    </div>
-</header>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre Nosotros</title>
+    <link rel="stylesheet" href="{% static 'Tienda/css/about.css' %}">
+    <link rel="stylesheet" href="{% static 'Tienda/css/footer.css' %}">
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #f5f5f5;
+            margin: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
         }
         .about-container {
             background: #fff;
@@ -75,6 +23,11 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             text-align: center;
             max-width: 600px;
+            margin: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         h1 {
             color: #b48a3c;
@@ -83,10 +36,103 @@
             color: #333;
             font-size: 1.1rem;
         }
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: #f5e5b5;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer {
+            width: 100%;
+            background: #f5e5b5;
+            color: #7a6330;
+            padding: 1rem 0;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            z-index: 999;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        .footer-links a {
+            color: #7a6330;
+            margin-left: 1.5rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #b48a3c;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <div class="about-container">
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-nombre">
+                <span class="logo">📒</span>
+                <span class="nombre-tienda">Papelería</span>
+            </div>
+            <form action="{% url 'productos' %}" method="get" class="search-form" id="searchForm">
+                <input type="text" name="buscar" placeholder="Buscar productos..." value="{{ request.GET.buscar|default_if_none:'' }}">
+                {% if request.GET.categoria %}
+                    <input type="hidden" name="categoria" value="{{ request.GET.categoria }}">
+                {% endif %}
+                <button type="submit" class="search-btn">🔍</button>
+            </form>
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li>
+                        <a href="{% url 'home' %}"
+                        class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                        Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'productos' %}"
+                        class="{% if request.resolver_match.url_name == 'productos' %}active{% endif %}">
+                        Products
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'about' %}"
+                        class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                        About
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://api.whatsapp.com/send/?phone=56945657563&text=Hola%2C+me+interesa+el+producto+lapcin&type=phone_number&app_absent=0" target="_blank" rel="noopener" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+                        Contact
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="cart-icon-container">
+                <button id="cartBtn" class="cart-btn" aria-label="Ver carrito">
+                    🛒 <span id="cart-count">0</span>
+                </button>
+            </div>
+            <button class="burger" id="burgerBtn" aria-label="Abrir menú">
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+            </button>
+        </div>
+    </header>
+    <div class="about-container" id="aboutCard">
         <h1>Sobre Nosotros</h1>
         <p>
             Bienvenido a nuestra papelería online, tu tienda de confianza para encontrar los mejores productos de papelería, stickers, diarios, cuadernos y mucho más. Nos apasiona la creatividad y la organización, por eso seleccionamos cuidadosamente cada producto para que encuentres calidad, diseño y utilidad en un solo lugar.<br><br>
@@ -94,5 +140,119 @@
             ¡Gracias por elegirnos!
         </p>
     </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div>Papelería | &copy; 2025</div>
+            <div class="footer-links">
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">WhatsApp</a>
+            </div>
+        </div>
+    </footer>
+    <!-- Canvas para notas musicales animadas -->
+    <canvas id="musical-notes-bg"></canvas>
+    <script>
+    // Ajustar el canvas al tamaño de la ventana
+    const canvas = document.getElementById('musical-notes-bg');
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Array de notas musicales (puedes agregar más)
+    const notes = ['\u266B', '\u266A', '\u266C', '\u2669'];
+    // Colores suaves para las notas
+    const colors = ['#b48a3c', '#7a6330', '#e2c98d', '#d1b36a'];
+
+    // Utilidades para obtener header/footer y tarjeta
+    function getHeaderFooterHeight() {
+        const header = document.querySelector('.main-header');
+        const footer = document.querySelector('.footer');
+        const headerHeight = header ? header.offsetHeight : 0;
+        const footerHeight = footer ? footer.offsetHeight : 0;
+        return { headerHeight, footerHeight };
+    }
+    function getAboutCardBounds() {
+        const about = document.getElementById('aboutCard');
+        if (!about) return null;
+        return about.getBoundingClientRect();
+    }
+
+    function createNote() {
+        const size = 24 + Math.random() * 24;
+        const { headerHeight, footerHeight } = getHeaderFooterHeight();
+        // El área vertical disponible es entre header y footer
+        const y = headerHeight + size + Math.random() * (canvas.height - headerHeight - footerHeight - size * 2);
+        return {
+            x: -40 - Math.random() * canvas.width, // Empiezan fuera de la pantalla
+            y: y,
+            speed: 1 + Math.random() * 1.2,
+            size: size,
+            symbol: notes[Math.floor(Math.random() * notes.length)],
+            color: colors[Math.floor(Math.random() * colors.length)],
+            swing: Math.random() * 2 * Math.PI,
+            swingSpeed: 0.01 + Math.random() * 0.02
+        };
+    }
+let musicalNotes = [];
+for (let i = 0; i < 170; i++) { // Más notas musicales
+    musicalNotes.push(createNote());
+}
+
+    function drawNotes() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Obtener bounds de la tarjeta en cada frame
+        const aboutBounds = getAboutCardBounds();
+        let aboutTop = 0, aboutBottom = 0, aboutLeft = 0, aboutRight = 0;
+        if (aboutBounds) {
+            aboutTop = aboutBounds.top + window.scrollY;
+            aboutBottom = aboutBounds.bottom + window.scrollY;
+            aboutLeft = aboutBounds.left + window.scrollX;
+            aboutRight = aboutBounds.right + window.scrollX;
+        }
+        for (let note of musicalNotes) {
+            ctx.font = `${note.size}px Arial`;
+            ctx.fillStyle = note.color;
+            ctx.globalAlpha = 0.5;
+            ctx.save();
+            let drawOver = true;
+            // Si la nota está dentro del área de la tarjeta, dibujar "por debajo" (simulado)
+            if (
+                aboutBounds &&
+                note.x > aboutLeft - note.size && note.x < aboutRight + note.size &&
+                note.y > aboutTop - note.size && note.y < aboutBottom + note.size
+            ) {
+                ctx.globalAlpha = 0.18; // Más transparente para simular que pasa "por debajo"
+                drawOver = false;
+            }
+            ctx.translate(note.x, note.y + Math.sin(note.swing) * 10);
+            ctx.rotate(Math.sin(note.swing) * 0.2);
+            ctx.fillText(note.symbol, 0, 0);
+            ctx.restore();
+            ctx.globalAlpha = 1;
+            // Movimiento de izquierda a derecha
+            note.x += note.speed;
+            note.swing += note.swingSpeed;
+            // Si sale de la pantalla, reiniciar a la izquierda
+            if (note.x > canvas.width + 40) {
+                Object.assign(note, createNote(), {x: -40});
+            }
+        }
+        requestAnimationFrame(drawNotes);
+    }
+    drawNotes();
+    // Canvas al fondo
+    canvas.style.position = 'fixed';
+    canvas.style.left = '0';
+    canvas.style.top = '0';
+    canvas.style.width = '100vw';
+    canvas.style.height = '100vh';
+    canvas.style.zIndex = '1';
+    canvas.style.pointerEvents = 'none';
+    </script>
 </body>
 </html>
