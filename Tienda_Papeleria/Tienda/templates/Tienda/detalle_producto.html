@@ -32,10 +32,10 @@
                 <a href="{% url 'productos' %}" class="{% if request.resolver_match.url_name == 'productos' %}active{% endif %}">Products</a>
             </li>
             <li>
-                <a href="#" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
+                <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
             </li>
             <li>
-                <a href="#" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
+                <a href="https://api.whatsapp.com/send/?phone=56945657563&text=Hola%2C+me+interesa+el+producto+lapcin&type=phone_number&app_absent=0" target="_blank" rel="noopener" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
             </li>
         </ul>
     </nav>

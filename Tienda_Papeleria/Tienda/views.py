@@ -1,3 +1,5 @@
+def about(request):
+    return render(request, 'Tienda/about.html')
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 # Create your views here.
