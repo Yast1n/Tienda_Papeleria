@@ -14,7 +14,7 @@
   <div class="header-container">
     <div class="logo-nombre">
       <span class="logo">📒</span>
-      <span class="nombre-tienda">Papelería</span>
+      <span class="nombre-tienda">Casa Del Journal</span>
     </div>
     <form action="{% url 'productos' %}" method="get" class="search-form" id="searchForm">
       <input type="text" name="buscar" placeholder="Buscar productos..." value="{{ request.GET.buscar|default_if_none:'' }}">
@@ -75,7 +75,7 @@
               {% endif %}
             </div>
             <a class="btn-contact" 
-               href="https://wa.me/56942425006?text=Hola%2C%20me%20interesa%20el%20producto%20{{ producto.nombre|urlencode }}" 
+               href="https://wa.me/56945657563?text=Hola%2C%20me%20interesa%20el%20producto%20{{ producto.nombre|urlencode }}" 
                target="_blank">
                Contactar por WhatsApp
             </a>
