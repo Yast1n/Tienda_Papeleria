@@ -18,7 +18,7 @@
   <div class="header-container">
     <div class="logo-nombre">
       <span class="logo">📒</span>
-      <span class="nombre-tienda">Papelería</span>
+      <span class="nombre-tienda">Casa Del Journal</span>
     </div>
     <form action="{% url 'productos' %}" method="get" class="search-form" id="searchForm">
       <input type="text" name="buscar" placeholder="Buscar productos..." value="{{ request.GET.buscar|default_if_none:'' }}">
