@@ -14,7 +14,7 @@
     <div class="header-container">
         <div class="logo-nombre">
             <span class="logo">📒</span>
-            <span class="nombre-tienda">Casa Del Journa</span>
+            <span class="nombre-tienda">Casa Del Journal</span>
         </div>
         <form action="{% url 'productos' %}" method="get" class="search-form" id="searchForm">
             <input type="text" name="buscar" placeholder="Buscar productos..." value="{{ request.GET.buscar|default_if_none:'' }}">
@@ -68,9 +68,6 @@
         <section class="hero">
             <h2>BIENVENIDO A NUESTRA TIENDA</h2>
             <h1>Encuentra tu papelería favorita</h1>
-            <div class="hero-img">
-                <img src="{% static 'Tienda/img/portada-notebook.png' %}" alt="Notebook" />
-            </div>
         </section>
 
         <section class="featured">
